@@ -11,7 +11,7 @@ Parse CSS variables declared in the `:root` selector.
 }
 
 div {
-  color: parse-var(--red);
+  color: root-var(--red);
 }
 
 /* output */
