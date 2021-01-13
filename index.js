@@ -4,9 +4,13 @@ module.exports = () => {
     prepare() {
       const vars = {};
       return {
-        Declaration (decl) {
-          if (decl.variable) {
-            vars[`root-var(${decl.prop})`] = decl.value;
+        Rule (rule) {
+          if (rule.selectors.includes(':root')) {
+            rule.walkDecls((decl) => {
+              if (decl.variable) {
+                vars[`root-var(${decl.prop})`] = decl.value;
+              }
+            });
           }
         },
         Root (root) {
@@ -15,7 +19,7 @@ module.exports = () => {
               return vars[key];
             });
           });
-        }
+        },
       }
     }
   }
